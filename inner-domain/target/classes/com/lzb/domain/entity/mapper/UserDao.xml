@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzb.dao.base.UserDao">
+
+    <resultMap id="All_Column_ResultMap" type="com.lzb.domain.entity.User">
+        <result column="user_id" property="userId" ></result>
+        <result column="user_name" property="userName" ></result>
+        <result column="user_age" property="age" ></result>
+        <result column="user_birthday" property="birthday" ></result>
+        <result column="nick_name" property="nickName" ></result>
+        <result column="nick_name" property="nickName" ></result>
+    </resultMap>
+
+    <!-- 用户表的别名统一用"U" -->
+    <sql id="All_Column">
+      u.user_id ,
+      u.user_name ,
+      u.nick_name ,
+      u.user_age ,
+      u.user_birthday
+    </sql>
+
+    <!--
+    <sql id="dynamicWhere">
+        <where>
+            <if test="userName != null" >
+
+            </if>
+        </where>
+    </sql>
+    -->
+
+    <select id="getUserLogin" parameterType="java.util.Map" resultMap="All_Column_ResultMap">
+        select
+         <include refid="All_Column"/>
+         from lzb_user u where u.user_name = #{username} and u.user_pass = #{password}
+    </select>
+</mapper>
